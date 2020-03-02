@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TesteVSCode",
+            "request": "launch",
+            "mainClass": "TesteVSCode",
+            "projectName": "PraticaComEclipse"
+        }
+    ]
+}
