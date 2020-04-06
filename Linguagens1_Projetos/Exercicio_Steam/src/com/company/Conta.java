@@ -38,4 +38,8 @@ public class Conta {
         resposta += "]}";
         return resposta;
     }
+
+    public Usuario getUser() {
+        return user;
+    }
 }
