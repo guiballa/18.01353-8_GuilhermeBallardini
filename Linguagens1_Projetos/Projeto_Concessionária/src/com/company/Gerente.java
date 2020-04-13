@@ -1,23 +1,14 @@
 package com.company;
 
-public class Gerente {
-    private double salarioBase;
-    private final double comissao;
+public class Gerente extends Funcionario{
+
 
     //Construtor
     public Gerente(double salarioBase){
-        this.salarioBase = salarioBase;
-        this.comissao = 0.1;
+        super(salarioBase, 0.1);
     }
 
-    public double getSalarioBase() {
-        return salarioBase;
-    }
-
-    public double getComissao() {
-        return comissao;
-    }
-
+    @Override
     public double getSalarioFinal(double totalVendasMes){
         return ((1.5*salarioBase) + comissao * totalVendasMes);
     }
