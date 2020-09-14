@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.maua.ControleInterface">
+   <children>
+      <VBox layoutX="14.0" layoutY="50.0" prefHeight="300.0" prefWidth="327.0" spacing="10.0">
+         <children>
+            <HBox prefHeight="14.0" prefWidth="325.0" spacing="8.0">
+               <children>
+                  <Label fx:id="lblSaida1" text="Saida:" />
+                  <Label fx:id="lblSaida2" layoutX="10.0" layoutY="10.0" text="Texto" />
+               </children>
+            </HBox>
+            <TextField fx:id="txtEntrada" promptText="Informe um Valor">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <HBox prefHeight="25.0" prefWidth="232.0" spacing="80.0">
+               <children>
+                  <Button fx:id="btnAction1" mnemonicParsing="false" onAction="#olaMundoCLI" text="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="btnAction2" mnemonicParsing="false" onAction="#exibirNome" text="2">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+               <padding>
+                  <Insets left="64.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="24.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="16.0">
+                     <children>
+                        <TextField fx:id="txt1" />
+                        <TextField fx:id="txt2" />
+                     </children>
+                  </VBox>
+                  <Button fx:id="btnSomar" mnemonicParsing="false" onAction="#somar" text="Button">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="24.0" top="24.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="341.0" layoutY="30.0" prefHeight="307.0" prefWidth="218.0" spacing="8.0">
+         <children>
+            <Label text="Cadastro" />
+            <TextField fx:id="txtNome" promptText="Nome" />
+            <TextField fx:id="txtSenha" promptText="Senha" />
+            <TextField fx:id="txtUrl" promptText="URL Foto" />
+            <Button mnemonicParsing="false" onAction="#previewFoto" text="Preview Foto" />
+            <ImageView fx:id="imgFoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Button mnemonicParsing="false" onAction="#cadastrar" text="Cadastrar" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
