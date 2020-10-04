@@ -28,7 +28,7 @@ public class Main {
         HttpClient client = HttpClient.newBuilder().build();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("https://api.magicthegathering.io/v1/cards?name=Jace%2cthe%20mind%20sculptor&set=wwk"))
+                .uri(URI.create("https://api.magicthegathering.io/v1/cards?name=Cavern%20of%20souls"))
                 .build();
         HttpResponse<String> response = client.send(request,
                 HttpResponse.BodyHandlers.ofString());
