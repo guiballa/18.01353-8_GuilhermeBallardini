@@ -11,8 +11,10 @@ public class AplicacaoDAO {
     private List<Produto> produtos;
     private ProdutoDAO produtoDAO;
     private Scanner scanner;
+    private int opcao;
 
     public AplicacaoDAO() {
+
         produtos = new ArrayList<>();
         produtoDAO = new ProdutoDAO();
         scanner = new Scanner(System.in);
@@ -22,7 +24,15 @@ public class AplicacaoDAO {
         boolean alive = true;
         do {
             menu();
-            int opcao = Integer.parseInt(scanner.next());
+            while(true) {
+                try {
+                    opcao = Integer.parseInt(scanner.next());
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Por favor inserir um numero valido: ");
+
+                }
+            }
             switch (opcao){
                 case 0:
                     alive = false;
