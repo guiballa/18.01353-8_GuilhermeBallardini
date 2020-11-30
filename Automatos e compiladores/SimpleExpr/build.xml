@@ -1,0 +1,88 @@
+<project name="SimpleExpr" 
+         default="dist" basedir=".">
+    <description>
+        Ant build file for a simple expression interpreter.
+    </description>
+    <!-- set global properties for this build -->
+    <property name="mainClass" value="parser.Main" />
+    <property name="src" location="src" />
+    <property name="tools" location="tools" />
+    <property name="jflex" location="src/jflex" />
+    <property name="cup" location="src/cup" />
+    <property name="build" location="build" />
+    <property name="dist" location="dist" />
+    <taskdef name="jflex" classname="jflex.anttask.JFlexTask" 
+             classpath="${tools}/jflex-1.6.1.jar" />
+    <taskdef name="cup" classname="java_cup.anttask.CUPTask" 
+             classpath="${tools}/java-cup-11b.jar" />
+    <target name="init">
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}" />
+    </target>
+    <target name="compile" depends="init" description="compile the source">
+        <!-- Run jflex from jflex dir -->
+        <jflex file="${jflex}/Scanner.jflex" 
+               destdir="${src}" />
+        <!-- Run cup from cup dir -->
+        <cup srcfile="${cup}/Parser.cup" destdir="${src}" parser="Parser" 
+             interface="true" locations="false" />
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}" 
+               classpath="${tools}/java-cup-11b.jar" debug="true"/>
+    </target>
+    <target name="dist" depends="compile" 
+            description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}" />
+        <!-- Put everything in ${build} into the jar file -->
+        <jar jarfile="${dist}/simple_expr.jar" 
+             basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" 
+                           value="${mainClass}" />
+            </manifest>
+            <zipgroupfileset dir="${tools}" includes="java-cup-11b.jar" />
+        </jar>
+    </target>
+    <target name="jar" depends="dist" description="same as dist">
+    </target>
+    <target name="run" depends="dist" description="run the project">
+        <java classname="${mainClass}" classpath="${dist}/simple_expr.jar">
+            <arg value="teste.input"/>
+        </java>
+    </target>
+    <target name="debug" depends="clean,dist">
+        <nbjpdastart addressproperty="jpda.address" name="SimpleExpr" 
+                     transport="dt_socket">
+            <classpath>
+                <pathelement location="${build}" />
+            </classpath>
+        </nbjpdastart>
+        <java fork="true" classname="${mainClass}" 
+              classpath="${dist}/simple_expr.jar">
+            <arg value="teste.input"/>
+            <sysproperty key="java.library.path" path="${build}" />
+            <classpath>
+                <pathelement location="${build}" />
+            </classpath>
+            <jvmarg value="-Xdebug" />
+            <jvmarg value="-Xnoagent" />
+            <jvmarg value="-Djava.compiler=none" />
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}" />
+        </java>
+    </target>
+    <target name="clean" description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+        <delete>
+            <fileset dir="${src}/parser">
+                <include name="Scanner.java" />
+                <include name="Parser.java" />
+                <include name="ParserCup.java" />
+                <include name="ParserSym.java" />
+                <include name="sym.java" />
+            </fileset>
+        </delete>
+    </target>
+</project>
