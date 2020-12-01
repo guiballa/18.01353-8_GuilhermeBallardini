@@ -1,8 +1,42 @@
 class scryfall_api {
   String object;
+  int totalCards;
+  bool hasMore;
+  List<Data> data;
+
+  scryfall_api({this.object, this.totalCards, this.hasMore, this.data});
+
+  scryfall_api.fromJson(Map<String, dynamic> json) {
+    object = json['object'];
+    totalCards = json['total_cards'];
+    hasMore = json['has_more'];
+    if (json['data'] != null) {
+      data = new List<Data>();
+      json['data'].forEach((v) {
+        data.add(new Data.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['object'] = this.object;
+    data['total_cards'] = this.totalCards;
+    data['has_more'] = this.hasMore;
+    if (this.data != null) {
+      data['data'] = this.data.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Data {
+  String object;
   String id;
   String oracleId;
   List<int> multiverseIds;
+  int mtgoId;
+  int arenaId;
   int tcgplayerId;
   int cardmarketId;
   String name;
@@ -21,6 +55,7 @@ class scryfall_api {
   List<String> colors;
   List<String> colorIdentity;
   List<String> keywords;
+  List<AllParts> allParts;
   Legalities legalities;
   List<String> games;
   bool reserved;
@@ -51,16 +86,27 @@ class scryfall_api {
   bool textless;
   bool booster;
   bool storySpotlight;
+  List<String> promoTypes;
   int edhrecRank;
+  Preview preview;
   Prices prices;
   RelatedUris relatedUris;
   PurchaseUris purchaseUris;
+  int mtgoFoilId;
+  List<CardFaces> cardFaces;
+  List<String> frameEffects;
+  List<String> producedMana;
+  String flavorText;
+  String power;
+  String toughness;
 
-  scryfall_api(
+  Data(
       {this.object,
         this.id,
         this.oracleId,
         this.multiverseIds,
+        this.mtgoId,
+        this.arenaId,
         this.tcgplayerId,
         this.cardmarketId,
         this.name,
@@ -79,6 +125,7 @@ class scryfall_api {
         this.colors,
         this.colorIdentity,
         this.keywords,
+        this.allParts,
         this.legalities,
         this.games,
         this.reserved,
@@ -109,16 +156,27 @@ class scryfall_api {
         this.textless,
         this.booster,
         this.storySpotlight,
+        this.promoTypes,
         this.edhrecRank,
+        this.preview,
         this.prices,
         this.relatedUris,
-        this.purchaseUris});
+        this.purchaseUris,
+        this.mtgoFoilId,
+        this.cardFaces,
+        this.frameEffects,
+        this.producedMana,
+        this.flavorText,
+        this.power,
+        this.toughness});
 
-  scryfall_api.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     object = json['object'];
     id = json['id'];
     oracleId = json['oracle_id'];
     multiverseIds = json['multiverse_ids'].cast<int>();
+    mtgoId = json['mtgo_id'];
+    arenaId = json['arena_id'];
     tcgplayerId = json['tcgplayer_id'];
     cardmarketId = json['cardmarket_id'];
     name = json['name'];
@@ -139,6 +197,12 @@ class scryfall_api {
     colors = json['colors'].cast<String>();
     colorIdentity = json['color_identity'].cast<String>();
     keywords = json['keywords'].cast<String>();
+    if (json['all_parts'] != null) {
+      allParts = new List<AllParts>();
+      json['all_parts'].forEach((v) {
+        allParts.add(new AllParts.fromJson(v));
+      });
+    }
     legalities = json['legalities'] != null
         ? new Legalities.fromJson(json['legalities'])
         : null;
@@ -171,7 +235,10 @@ class scryfall_api {
     textless = json['textless'];
     booster = json['booster'];
     storySpotlight = json['story_spotlight'];
+    promoTypes = json['promo_types'].cast<String>();
     edhrecRank = json['edhrec_rank'];
+    preview =
+    json['preview'] != null ? new Preview.fromJson(json['preview']) : null;
     prices =
     json['prices'] != null ? new Prices.fromJson(json['prices']) : null;
     relatedUris = json['related_uris'] != null
@@ -180,6 +247,18 @@ class scryfall_api {
     purchaseUris = json['purchase_uris'] != null
         ? new PurchaseUris.fromJson(json['purchase_uris'])
         : null;
+    mtgoFoilId = json['mtgo_foil_id'];
+    if (json['card_faces'] != null) {
+      cardFaces = new List<CardFaces>();
+      json['card_faces'].forEach((v) {
+        cardFaces.add(new CardFaces.fromJson(v));
+      });
+    }
+    frameEffects = json['frame_effects'].cast<String>();
+    producedMana = json['produced_mana'].cast<String>();
+    flavorText = json['flavor_text'];
+    power = json['power'];
+    toughness = json['toughness'];
   }
 
   Map<String, dynamic> toJson() {
@@ -188,6 +267,8 @@ class scryfall_api {
     data['id'] = this.id;
     data['oracle_id'] = this.oracleId;
     data['multiverse_ids'] = this.multiverseIds;
+    data['mtgo_id'] = this.mtgoId;
+    data['arena_id'] = this.arenaId;
     data['tcgplayer_id'] = this.tcgplayerId;
     data['cardmarket_id'] = this.cardmarketId;
     data['name'] = this.name;
@@ -208,6 +289,9 @@ class scryfall_api {
     data['colors'] = this.colors;
     data['color_identity'] = this.colorIdentity;
     data['keywords'] = this.keywords;
+    if (this.allParts != null) {
+      data['all_parts'] = this.allParts.map((v) => v.toJson()).toList();
+    }
     if (this.legalities != null) {
       data['legalities'] = this.legalities.toJson();
     }
@@ -240,7 +324,11 @@ class scryfall_api {
     data['textless'] = this.textless;
     data['booster'] = this.booster;
     data['story_spotlight'] = this.storySpotlight;
+    data['promo_types'] = this.promoTypes;
     data['edhrec_rank'] = this.edhrecRank;
+    if (this.preview != null) {
+      data['preview'] = this.preview.toJson();
+    }
     if (this.prices != null) {
       data['prices'] = this.prices.toJson();
     }
@@ -250,6 +338,15 @@ class scryfall_api {
     if (this.purchaseUris != null) {
       data['purchase_uris'] = this.purchaseUris.toJson();
     }
+    data['mtgo_foil_id'] = this.mtgoFoilId;
+    if (this.cardFaces != null) {
+      data['card_faces'] = this.cardFaces.map((v) => v.toJson()).toList();
+    }
+    data['frame_effects'] = this.frameEffects;
+    data['produced_mana'] = this.producedMana;
+    data['flavor_text'] = this.flavorText;
+    data['power'] = this.power;
+    data['toughness'] = this.toughness;
     return data;
   }
 }
@@ -287,6 +384,43 @@ class ImageUris {
     data['png'] = this.png;
     data['art_crop'] = this.artCrop;
     data['border_crop'] = this.borderCrop;
+    return data;
+  }
+}
+
+class AllParts {
+  String object;
+  String id;
+  String component;
+  String name;
+  String typeLine;
+  String uri;
+
+  AllParts(
+      {this.object,
+        this.id,
+        this.component,
+        this.name,
+        this.typeLine,
+        this.uri});
+
+  AllParts.fromJson(Map<String, dynamic> json) {
+    object = json['object'];
+    id = json['id'];
+    component = json['component'];
+    name = json['name'];
+    typeLine = json['type_line'];
+    uri = json['uri'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['object'] = this.object;
+    data['id'] = this.id;
+    data['component'] = this.component;
+    data['name'] = this.name;
+    data['type_line'] = this.typeLine;
+    data['uri'] = this.uri;
     return data;
   }
 }
@@ -356,12 +490,34 @@ class Legalities {
   }
 }
 
+class Preview {
+  String source;
+  String sourceUri;
+  String previewedAt;
+
+  Preview({this.source, this.sourceUri, this.previewedAt});
+
+  Preview.fromJson(Map<String, dynamic> json) {
+    source = json['source'];
+    sourceUri = json['source_uri'];
+    previewedAt = json['previewed_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['source'] = this.source;
+    data['source_uri'] = this.sourceUri;
+    data['previewed_at'] = this.previewedAt;
+    return data;
+  }
+}
+
 class Prices {
-  Null usd;
+  String usd;
   String usdFoil;
-  Null eur;
+  String eur;
   String eurFoil;
-  Null tix;
+  String tix;
 
   Prices({this.usd, this.usdFoil, this.eur, this.eurFoil, this.tix});
 
@@ -427,6 +583,79 @@ class PurchaseUris {
     data['tcgplayer'] = this.tcgplayer;
     data['cardmarket'] = this.cardmarket;
     data['cardhoarder'] = this.cardhoarder;
+    return data;
+  }
+}
+
+class CardFaces {
+  String object;
+  String name;
+  String manaCost;
+  String typeLine;
+  String oracleText;
+  List<String> colors;
+  String power;
+  String toughness;
+  String artist;
+  String artistId;
+  String illustrationId;
+  ImageUris imageUris;
+  List<String> colorIndicator;
+  String loyalty;
+
+  CardFaces(
+      {this.object,
+        this.name,
+        this.manaCost,
+        this.typeLine,
+        this.oracleText,
+        this.colors,
+        this.power,
+        this.toughness,
+        this.artist,
+        this.artistId,
+        this.illustrationId,
+        this.imageUris,
+        this.colorIndicator,
+        this.loyalty});
+
+  CardFaces.fromJson(Map<String, dynamic> json) {
+    object = json['object'];
+    name = json['name'];
+    manaCost = json['mana_cost'];
+    typeLine = json['type_line'];
+    oracleText = json['oracle_text'];
+    colors = json['colors'].cast<String>();
+    power = json['power'];
+    toughness = json['toughness'];
+    artist = json['artist'];
+    artistId = json['artist_id'];
+    illustrationId = json['illustration_id'];
+    imageUris = json['image_uris'] != null
+        ? new ImageUris.fromJson(json['image_uris'])
+        : null;
+    colorIndicator = json['color_indicator'].cast<String>();
+    loyalty = json['loyalty'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['object'] = this.object;
+    data['name'] = this.name;
+    data['mana_cost'] = this.manaCost;
+    data['type_line'] = this.typeLine;
+    data['oracle_text'] = this.oracleText;
+    data['colors'] = this.colors;
+    data['power'] = this.power;
+    data['toughness'] = this.toughness;
+    data['artist'] = this.artist;
+    data['artist_id'] = this.artistId;
+    data['illustration_id'] = this.illustrationId;
+    if (this.imageUris != null) {
+      data['image_uris'] = this.imageUris.toJson();
+    }
+    data['color_indicator'] = this.colorIndicator;
+    data['loyalty'] = this.loyalty;
     return data;
   }
 }
