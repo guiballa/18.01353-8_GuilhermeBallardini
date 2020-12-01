@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
             children: [
               SizedBox(width:200, height: 100,child: Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Magicthegathering-logo.svg/1280px-Magicthegathering-logo.svg.png")),
-              meuTextFieldPersonalizado(controladorCarta, "Informe o nome da Carta desejada", "Carta:", Icon(Icons.drive_file_rename_outline)),
+              meuTextFieldPersonalizado(controladorCarta, "Informe o nome da Carta desejada", "Nome da Carta:", Icon(Icons.drive_file_rename_outline)),
               ElevatedButton(onPressed: (){
                 Navigator.push(
                   context,
@@ -29,6 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
                }, child: Text("Procurar")
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(width:260, height: 350,child: Image.network("https://media.magic.wizards.com/image_legacy_migration/magic/images/mtgcom/fcpics/making/mr224_back.jpg")),
               ),
             ],
           ),
