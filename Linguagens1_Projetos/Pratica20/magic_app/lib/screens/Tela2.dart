@@ -5,25 +5,28 @@ import 'package:magic_app/Utilities/network_helper.dart';
 import 'package:magic_app/models/scryfall_api.dart';
 
 class SegundaTela extends StatefulWidget {
-  String Nome;
+  String Name;
 
   @override
   _SegundaTelaState createState() => _SegundaTelaState();
 
-  SegundaTela({Key key, @required this.Nome}) : super(key: key);
+  SegundaTela({Key key, @required this.Name}) : super(key: key);
+
+
+
 }
 
 class _SegundaTelaState extends State<SegundaTela> {
   List _cardsListUrl = [];
-  
+
 
   @override
-  Widget build(BuildContext context) {
-    var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + Nome + "&unique=cards&order=name");
+  Widget build(BuildContext context) async{
+    var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + widget.Name + "&unique=cards&order=name");
     var data = scryfall_api.fromJson(await requisicao.getData());
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(title: Text("Busca pelo nome de "+ widget.Nome , style: GoogleFonts.lato(),), ),
+          appBar: AppBar(title: Text("Busca pelo nome de "+ widget.Name , style: GoogleFonts.lato(),), ),
           body: Column(
             children: [
               Expanded(
@@ -42,7 +45,7 @@ class _SegundaTelaState extends State<SegundaTela> {
         )
     );
   }
-  void adicionar_novo_registro(String Nome) {
+  void adicionar_nova_carta(String Nome) {
     setState(() async {
       var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + Nome + "&unique=cards&order=name");
       var data = scryfall_api.fromJson(await requisicao.getData());
