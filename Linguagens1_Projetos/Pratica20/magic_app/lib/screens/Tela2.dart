@@ -18,7 +18,7 @@ class SegundaTela extends StatefulWidget {
 
 class _SegundaTelaState extends State<SegundaTela> {
   List _cardsListUrl = [];
-  
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +31,13 @@ class _SegundaTelaState extends State<SegundaTela> {
                 FutureBuilder<dynamic>(
                   future: requisicao.getData(),
                   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    var dados = scryfall_api.fromJson(snapshot.data);
                     if (snapshot.hasData) {
                       return Text('The answer to everything is ${snapshot.data}');
                     } else {
-                      // var data = scryfall_api.fromJson(snapshot.data);
                       return //COlocar o LIstView builder aqui;
                         ListView.builder(
-                          itemCount: snapshot.data.le,
+                          itemCount: dados.totalCards,
                           itemBuilder: (context, index){
                             return ListTile(
                               title: Text("Ola"),
