@@ -18,56 +18,35 @@ class SegundaTela extends StatefulWidget {
 
 class _SegundaTelaState extends State<SegundaTela> {
   List _cardsListUrl = [];
+  
 
-
-
-  // @override
-  // Widget build(BuildContext context) async{
-  //   var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + widget.Name + "&unique=cards&order=name");
-  //   var data = scryfall_api.fromJson(await requisicao.getData());
-  //   return SafeArea(
-  //       child: Scaffold(
-  //         appBar: AppBar(title: Text("Busca pelo nome de "+ widget.Name , style: GoogleFonts.lato(),), ),
-  //         body: Column(
-  //           children: [
-  //             Expanded(
-  //                 child:
-  //
-  //                   ListView.builder(
-  //                     itemBuilder: (context, index){
-  //                       return ListTile(
-  //                         leading: Image.network(_cardsListUrl[index]),
-  //                       );
-  //                     }
-  //                 )
-  //             )
-  //           ],
-  //         ),
-  //       )
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
+    var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + widget.Name + "&unique=cards&order=name");
     return SafeArea(
         child: Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(title: Text("Busca pelo nome de "+ widget.Name , style: GoogleFonts.lato(),), ),
             body: Column(
               children: <Widget>[
-                FutureBuilder<int>(
+                FutureBuilder<dynamic>(
                   future: requisicao.getData(),
-                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     if (snapshot.hasData) {
                       return Text('The answer to everything is ${snapshot.data}');
                     } else {
-                      var data = scryfall_api.fromJson(snapshot.data);
+                      // var data = scryfall_api.fromJson(snapshot.data);
                       return //COlocar o LIstView builder aqui;
+                        ListView.builder(
+                          itemCount: snapshot.data.le,
+                          itemBuilder: (context, index){
+                            return ListTile(
+                              title: Text("Ola"),
+                              // leading: Image.network(_cardsListUrl[index]),
+                            );
+                          });
                     }
                   },
                 ),
-                RaisedButton(
-                  onPressed: _retry,
-                  child: Text('Retry'),
-                )
               ],
             )
         )
