@@ -23,11 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
               meuTextFieldPersonalizado(controladorCarta, "Informe o nome da Carta desejada", "Carta:", Icon(Icons.drive_file_rename_outline)),
               ElevatedButton(onPressed: (){
                 Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>
-                SegundaTela(Nome: controladorCarta.text,)),
+                  context,
+                  MaterialPageRoute(builder: (context) =>
+                      SegundaTela(Nome: controladorCarta.text,)
+                  ),
                 );
-                }, child: Text("Adicionar")
+               }, child: Text("Adicionar")
               ),
             ],
           ),
