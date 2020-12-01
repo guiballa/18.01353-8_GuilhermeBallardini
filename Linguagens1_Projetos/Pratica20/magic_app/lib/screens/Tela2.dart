@@ -31,18 +31,19 @@ class _SegundaTelaState extends State<SegundaTela> {
                 FutureBuilder<dynamic>(
                   future: requisicao.getData(),
                   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    var dados = scryfall_api.fromJson(snapshot.data);
+                    // var dados = scryfall_api.fromJson(snapshot.data);
                     if (snapshot.hasData) {
                       return Text('The answer to everything is ${snapshot.data}');
                     } else {
                       return //COlocar o LIstView builder aqui;
                         ListView.builder(
-                          itemCount: dados.totalCards,
+                          // itemCount: dados.totalCards,
                           itemBuilder: (context, index){
                             return ListTile(
                               title: Text("Ola"),
                               // leading: Image.network(_cardsListUrl[index]),
                             );
+
                           });
                     }
                   },
@@ -56,14 +57,11 @@ class _SegundaTelaState extends State<SegundaTela> {
 
 
 
-  void adicionar_nova_carta(String Nome) {
+  void adicionar_nova_carta(String Nome, int index) {
     setState(() async {
       var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + Nome + "&unique=cards&order=name");
-      var data = scryfall_api.fromJson(await requisicao.getData());
-      // var num_dados = data.totalCards;
-      // _cardsListUrl.add();
-      print(_cardsListUrl);
+      var dados = scryfall_api.fromJson(await requisicao.getData());
+       _cardsListUrl.add(dados.data[index].imageUris.large);
     });
-
   }
 }
