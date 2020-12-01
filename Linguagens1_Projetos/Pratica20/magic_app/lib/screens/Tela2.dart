@@ -20,31 +20,63 @@ class _SegundaTelaState extends State<SegundaTela> {
   List _cardsListUrl = [];
 
 
+
+  // @override
+  // Widget build(BuildContext context) async{
+  //   var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + widget.Name + "&unique=cards&order=name");
+  //   var data = scryfall_api.fromJson(await requisicao.getData());
+  //   return SafeArea(
+  //       child: Scaffold(
+  //         appBar: AppBar(title: Text("Busca pelo nome de "+ widget.Name , style: GoogleFonts.lato(),), ),
+  //         body: Column(
+  //           children: [
+  //             Expanded(
+  //                 child:
+  //
+  //                   ListView.builder(
+  //                     itemBuilder: (context, index){
+  //                       return ListTile(
+  //                         leading: Image.network(_cardsListUrl[index]),
+  //                       );
+  //                     }
+  //                 )
+  //             )
+  //           ],
+  //         ),
+  //       )
+  //   );
+  // }
   @override
-  Widget build(BuildContext context) async{
-    var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + widget.Name + "&unique=cards&order=name");
-    var data = scryfall_api.fromJson(await requisicao.getData());
+  Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(title: Text("Busca pelo nome de "+ widget.Name , style: GoogleFonts.lato(),), ),
-          body: Column(
-            children: [
-              Expanded(
-                  child:
-
-                    ListView.builder(
-                      itemBuilder: (context, index){
-                        return ListTile(
-                          leading: Image.network(_cardsListUrl[index]),
-                        );
-                      }
-                  )
-              )
-            ],
-          ),
+            appBar: AppBar(),
+            body: Column(
+              children: <Widget>[
+                FutureBuilder<int>(
+                  future: requisicao.getData(),
+                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                    if (snapshot.hasData) {
+                      return Text('The answer to everything is ${snapshot.data}');
+                    } else {
+                      var data = scryfall_api.fromJson(snapshot.data);
+                      return //COlocar o LIstView builder aqui;
+                    }
+                  },
+                ),
+                RaisedButton(
+                  onPressed: _retry,
+                  child: Text('Retry'),
+                )
+              ],
+            )
         )
     );
   }
+
+
+
+
   void adicionar_nova_carta(String Nome) {
     setState(() async {
       var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + Nome + "&unique=cards&order=name");
