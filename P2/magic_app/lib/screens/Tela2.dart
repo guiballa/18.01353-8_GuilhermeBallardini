@@ -36,7 +36,7 @@ class _SegundaTelaState extends State<SegundaTela> {
         top: true,
         child: Scaffold(
             body: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Column(
                 children: <Widget>[
                   Row(
@@ -46,7 +46,8 @@ class _SegundaTelaState extends State<SegundaTela> {
                             Icons.arrow_back_ios,
                             size: 24,
                           ),
-                          onPressed: () => Navigator.pop(context)),
+                          onPressed: () => Navigator.pop(context)
+                      ),
                       Expanded(
                           child: Container(
                             alignment: Alignment.center,
@@ -67,7 +68,7 @@ class _SegundaTelaState extends State<SegundaTela> {
                               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 16,
-                                crossAxisSpacing: 16,
+                                crossAxisSpacing: 0,
                               ),
                               itemCount: scryfallApi.totalCards,
                               itemBuilder: (context, index) {
@@ -87,7 +88,7 @@ class _SegundaTelaState extends State<SegundaTela> {
                               child: Text(
                                 'Buscando cartas',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 20,
                                 ),
                               )),
                         );
@@ -98,5 +99,5 @@ class _SegundaTelaState extends State<SegundaTela> {
               ),
             )));
   }
-  
+
 }
