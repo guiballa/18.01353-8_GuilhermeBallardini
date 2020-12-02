@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:magic_app/Utilities/network_helper.dart';
 import 'package:magic_app/models/scryfall_api.dart';
 
@@ -11,7 +10,6 @@ class SegundaTela extends StatefulWidget {
 }
 
 class _SegundaTelaState extends State<SegundaTela> {
-  List _cardsListUrl = [];
   NetworkHelper requisicao;
   Scryfall_api scryfallApi = new Scryfall_api();
   @override
@@ -52,7 +50,7 @@ class _SegundaTelaState extends State<SegundaTela> {
                             alignment: Alignment.center,
                             child: Text(
                               widget.name.toUpperCase(),
-                              style: GoogleFonts.lato(),
+                              style: TextStyle(fontSize: 16),
                             ),
                           ))
                     ],
