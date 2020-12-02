@@ -52,7 +52,7 @@ class _SegundaTelaState extends State<SegundaTela> {
                           child: Container(
                             alignment: Alignment.center,
                             child: Text(
-                              widget.name,
+                              widget.name.toUpperCase(),
                               style: GoogleFonts.lato(),
                             ),
                           ))
