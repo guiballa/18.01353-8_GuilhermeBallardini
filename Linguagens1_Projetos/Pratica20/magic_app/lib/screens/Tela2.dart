@@ -19,10 +19,11 @@ class SegundaTela extends StatefulWidget {
 class _SegundaTelaState extends State<SegundaTela> {
   List _cardsListUrl = [];
 
-
   @override
   Widget build(BuildContext context) {
-    var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" + widget.Name + "&unique=cards&order=name");
+    String card = widget.Name;
+    card = card.replaceAll(" ", "%20");
+    var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" +card+ "&unique=cards&order=name");
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(title: Text("Busca pelo nome de "+ widget.Name , style: GoogleFonts.lato(),), ),
@@ -31,20 +32,26 @@ class _SegundaTelaState extends State<SegundaTela> {
                 FutureBuilder<dynamic>(
                   future: requisicao.getData(),
                   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    // var dados = scryfall_api.fromJson(snapshot.data);
                     if (snapshot.hasData) {
-                      return Text('The answer to everything is ${snapshot.data}');
-                    } else {
-                      return //COlocar o LIstView builder aqui;
-                        ListView.builder(
-                          // itemCount: dados.totalCards,
-                          itemBuilder: (context, index){
-                            return ListTile(
-                              title: Text("Ola"),
-                              // leading: Image.network(_cardsListUrl[index]),
-                            );
+                      var dados = scryfall_api.fromJson(snapshot.data);
+                      return Expanded(
+                        child: ListView.builder(
+                            itemCount: 2,
+                            itemBuilder: (context, index){
+                              return ListTile(
+                                title: Text("teste"),
+                                leading: Image.network(dados.data[0].imageUris.large),
 
-                          });
+                                // leading: Image.network(_cardsListUrl[index]),
+                              );
+                            }),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Text('Buscando cartas', style: TextStyle(fontSize: 24, ),)),
+                      );
+
                     }
                   },
                 ),
