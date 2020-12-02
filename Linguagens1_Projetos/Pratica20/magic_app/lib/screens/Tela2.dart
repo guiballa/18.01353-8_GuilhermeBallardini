@@ -39,6 +39,7 @@ class _SegundaTelaState extends State<SegundaTela> {
                     if (snapshot.hasData) {
                       var dados = scryfall_api.fromJson(snapshot.data);
                       return Expanded(
+                        
                         child: ListView.builder(
                             itemCount: 2,
                             itemBuilder: (context, index){
