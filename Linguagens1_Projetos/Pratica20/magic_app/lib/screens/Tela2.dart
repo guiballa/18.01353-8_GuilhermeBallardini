@@ -5,33 +5,37 @@ import 'package:magic_app/Utilities/network_helper.dart';
 import 'package:magic_app/models/scryfall_api.dart';
 
 class SegundaTela extends StatefulWidget {
-  String Name;
-
+  final String name;
+  SegundaTela({Key key, @required this.name}) : super(key: key);
   @override
   _SegundaTelaState createState() => _SegundaTelaState();
-
-  SegundaTela({Key key, @required this.Name}) : super(key: key);
-
-
-
 }
 
 class _SegundaTelaState extends State<SegundaTela> {
   List _cardsListUrl = [];
+  NetworkHelper requisicao;
+  @override
+  void initState() {
+    iniciaData();
+    super.initState();
+  }
+
+  iniciaData(){
+    String card = widget.name;
+    card = card.replaceAll(" ", "%20");
+    requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" +card+ "&unique=cards&order=name");
+  }
 
   @override
   Widget build(BuildContext context) {
-    String card = widget.Name;
-    card = card.replaceAll(" ", "%20");
-    var requisicao = NetworkHelper(url:"https://api.scryfall.com/cards/search?q=" +card+ "&unique=cards&order=name");
     return SafeArea(
         child: Scaffold(
-            appBar: AppBar(title: Text("Busca pelo nome de "+ widget.Name , style: GoogleFonts.lato(),), ),
+            appBar: AppBar(title: Text("Busca pelo nome de "+ widget.name , style: GoogleFonts.lato(),), ),
             body: Column(
               children: <Widget>[
-                FutureBuilder<dynamic>(
+                FutureBuilder(
                   future: requisicao.getData(),
-                  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       var dados = scryfall_api.fromJson(snapshot.data);
                       return Expanded(
@@ -40,7 +44,7 @@ class _SegundaTelaState extends State<SegundaTela> {
                             itemBuilder: (context, index){
                               return ListTile(
                                 title: Text("teste"),
-                                leading: Image.network(dados.data[0].imageUris.large),
+                                leading: Image.network(dados.data[1].imageUris.small),
 
                                 // leading: Image.network(_cardsListUrl[index]),
                               );

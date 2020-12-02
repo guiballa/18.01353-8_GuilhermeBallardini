@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) =>
-                      SegundaTela(Name: controladorCarta.text,)
+                      SegundaTela(name: controladorCarta.text,)
                   ),
                 );
                }, child: Text("Procurar")
