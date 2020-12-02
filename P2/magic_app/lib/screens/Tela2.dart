@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
 import 'package:magic_app/Utilities/network_helper.dart';
 import 'package:magic_app/models/scryfall_api.dart';
 
