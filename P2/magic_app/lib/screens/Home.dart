@@ -30,10 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
                }, child: Text("Procurar")
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SizedBox(width:260, height: 350,
-                    child: Image.network("https://media.magic.wizards.com/image_legacy_migration/magic/images/mtgcom/fcpics/making/mr224_back.jpg")),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(width:260, height: 350,
+                      child: Image.network("https://media.magic.wizards.com/image_legacy_migration/magic/images/mtgcom/fcpics/making/mr224_back.jpg")),
+                ),
               ),
             ],
           ),
