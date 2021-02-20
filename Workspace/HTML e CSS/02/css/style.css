@@ -1,0 +1,14 @@
+        /* exemplo de comentario */
+        h1{
+            color: yellow;
+            text-align: center;
+            
+        }
+        p{
+            color: blue;
+            border: solid 1px black;
+        }
+        strong{
+            color: blueviolet;
+            background-color: orange;
+        }
