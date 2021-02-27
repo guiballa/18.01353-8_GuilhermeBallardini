@@ -36,8 +36,6 @@
             color: red;
         }
 
-
-
         p{
             color: blue;
             border: solid 1px black;
@@ -49,4 +47,26 @@
 
         article p{
             padding: 16px;
+        }
+
+        section p {
+            padding: 8px;
+        }
+
+        #princial p.promocao{
+            padding: 16px;
+            border-bottom: #ccc 1px solid;
+
+        }
+
+        body #principal article section p.coordenadores{
+            text-align: center;
+        }
+        article > p{
+            margin-left: 80px;
+            margin-right: 80px;
+        }
+
+        main > article section > p.coordenadores{
+            
         }
