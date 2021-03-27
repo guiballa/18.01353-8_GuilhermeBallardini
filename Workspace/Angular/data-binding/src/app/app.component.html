@@ -1,0 +1,16 @@
+<!-- 2+2 = {{10*2}}
+Me chamo {{nome}}
+Tenho {{idade}} anos
+Minha sorte de hoje: {{lancarDado()}} -->
+<div class="container mt-3 p-3 border">
+  <form>
+    <div class="form-group">
+      <label for="nomeImput">Nome</label>
+      <input (input)="alterarNome($event)" type="text" class="form-control" id="nomeImput" placeholder="Digite seu nome">
+    </div>
+    <button (click)="adicionar()" type="button" class="btn btn-primary">Adicionar</button>
+    <div class="alert alert-primary mt- p-3">
+      {{nome}}
+    </div>
+  </form>
+</div>
