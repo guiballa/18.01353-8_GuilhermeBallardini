@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ClienteService } from './clientes/cliente.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatToolbarModule,
     MatExpansionModule,
   ],
-  providers: [],
+  providers: [ClienteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

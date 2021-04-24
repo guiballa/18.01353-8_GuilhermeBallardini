@@ -1,4 +1,6 @@
+import { ClienteService } from './../cliente.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Cliente } from '../cliente.model';
 
 @Component({
@@ -9,23 +11,23 @@ import { Cliente } from '../cliente.model';
 export class ClienteInserirComponent implements OnInit {
 
 
-  nome: string;
-  fone: string;
-  email: string;
+  // nome: string;
+  // fone: string;
+  // email: string;
 
-  @Output() clienteAdicionado = new EventEmitter<Cliente>();
+  //@Output() clienteAdicionado = new EventEmitter<Cliente>();
 
-  constructor() { }
+  constructor(private ClienteService: ClienteService) { }
 
   ngOnInit(): void {
   }
-  onAdicionarCliente(){
-    const cliente: Cliente = {
-      nome: this.nome,
-      fone: this.fone,
-      email: this.email
-    }
-    this.clienteAdicionado.emit(cliente);
-    //console.log('Adicionando Cliente...');
+  onAdicionarCliente(form: NgForm){
+    if(form.invalid) return;
+    this.ClienteService.adicionarCliente(
+      form.value.nome,
+      form.value.fone,
+      form.value.email
+    );
+
   }
 }
