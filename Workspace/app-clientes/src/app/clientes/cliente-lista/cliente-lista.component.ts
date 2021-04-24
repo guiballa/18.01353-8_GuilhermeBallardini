@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Cliente } from '../cliente.model';
 
 @Component({
   selector: 'app-cliente-lista',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cliente-lista.component.css']
 })
 export class ClienteListaComponent implements OnInit {
+
+  @Input() clientes: Cliente[] = [];
 
   constructor() { }
 
